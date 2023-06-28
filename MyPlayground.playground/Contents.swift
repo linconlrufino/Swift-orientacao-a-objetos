@@ -149,7 +149,6 @@ var retangulo: Retangulo = Retangulo(base: 10, altura: 20)
 print("Area: \(retangulo.calcularArea())")
 print("Perimetro: \(retangulo.calcularperimetro())")
 
- */
 
 //final class Pessoa {}
 // class Estudante: Pessoa {} -> Erro! Pessoa não pode ser herdada
@@ -222,3 +221,51 @@ func exibeSaldoDaConta(_ conta : Conta) {
 exibeSaldoDaConta(contaCorrente)
 exibeSaldoDaConta(contaPoupanca)
 
+ */
+
+//Desafio 1 - Registrando o empregado e gerente
+
+class Empregado {
+    var nome: String
+    var salario: Double
+    
+    init(nome: String, salario: Double) {
+        self.nome = nome
+        self.salario = salario
+    }
+}
+
+class Gerente: Empregado {
+    var departamento: String
+    
+    init(nome: String, salario: Double, departamento: String) {
+        self.departamento = departamento
+        super.init(nome: nome, salario: salario)
+    }
+}
+
+class Vendedor: Empregado {
+    func percentualComissaoSalario(_ vendas: Int) -> Double {
+        var valorFixoVenda: Double = 50
+        var comissao10PorCento: Double = 0.1
+        
+        return  self.salario + (valorFixoVenda * Double(vendas)) * comissao10PorCento
+    }
+}
+
+func verificarTipo(_ empregado: Empregado){
+    
+    if let gerente = empregado as? Gerente {
+        print("O(a) empregado(a) \(gerente.nome) é um(a) gerente e está no departamento \(gerente.departamento).")
+    } else if let vendedor = empregado as? Vendedor {
+        print("O(a) empregado(a) \(vendedor.nome) é um(a) vendedor.")
+    } else {
+        print("O(a) empregado(a) \(empregado.nome) é de um outro tipo.")
+    }
+}
+
+let gerente = Gerente(nome: "Mancuello", salario: 200, departamento: "Almoxarifado")
+let vendedor = Vendedor(nome: "Cuellar", salario: 100)
+
+verificarTipo(gerente)
+verificarTipo(vendedor)
