@@ -169,21 +169,27 @@ class Conta {
 }
 
 class ContaPoupanca : Conta {
-    var possuiCartaoDebito: Bool = false
+    var possuiCartaoDebito: Bool
     
     func solicitarDebito() {
         possuiCartaoDebito = true
         print("O cliente está solicitando cartão de débito")
+    }
+    
+    init(nome: String, possuiCartaoDebito: Bool) {
+        self.possuiCartaoDebito = possuiCartaoDebito
+        super.init(nome: nome)
     }
 }
 
 class ContaCorrente: Conta {
     func solicitarEmprestimo(_ valor: Double) {
         print("O cliente está solicitando um empréstimo no valor de  R$\(valor)")
+        super.depositar(valor)
     }
 }
 
-var contaPoupanca = ContaPoupanca(nome: "Tolstoi")
+var contaPoupanca = ContaPoupanca(nome: "Tolstoi", possuiCartaoDebito: false)
 contaPoupanca.depositar(50)
 print(contaPoupanca.saldo)
 contaPoupanca.solicitarDebito()
@@ -192,3 +198,7 @@ var contaCorrente = ContaCorrente(nome: "Tarantino")
 contaCorrente.depositar(100)
 print(contaCorrente.saldo)
 contaCorrente.solicitarEmprestimo(200)
+print(contaCorrente.saldo)
+
+//final class Pessoa {}
+// class Estudante: Pessoa {} -> Erro! Pessoa não pode ser herdada
