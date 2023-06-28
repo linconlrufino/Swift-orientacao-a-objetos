@@ -151,6 +151,9 @@ print("Perimetro: \(retangulo.calcularperimetro())")
 
  */
 
+//final class Pessoa {}
+// class Estudante: Pessoa {} -> Erro! Pessoa não pode ser herdada
+
 class Conta {
     var saldo: Double = 0.0
     var nome: String
@@ -200,5 +203,22 @@ print(contaCorrente.saldo)
 contaCorrente.solicitarEmprestimo(200)
 print(contaCorrente.saldo)
 
-//final class Pessoa {}
-// class Estudante: Pessoa {} -> Erro! Pessoa não pode ser herdada
+func exibeSaldoDaConta(_ conta : Conta) {
+    if conta is ContaCorrente {
+        print("Conta é do tipo conta corrente")
+    }
+    
+    if let contaCorrente = conta as? ContaCorrente {
+        contaCorrente.solicitarEmprestimo(200)
+    }
+    
+    guard let contaPoupanca = conta as? ContaPoupanca else {
+        return
+    }
+    print(contaPoupanca.possuiCartaoDebito)
+    print(conta.saldo)
+}
+
+exibeSaldoDaConta(contaCorrente)
+exibeSaldoDaConta(contaPoupanca)
+
