@@ -56,7 +56,6 @@ contaCorrenteClasse02.depositar(100)
 print("Saldo da conta corrente classe 01 = \(contaCorrenteClasse01.saldo)")
 print("Saldo da conta corrente classe 02 = \(contaCorrenteClasse02.saldo)")
 
-*/
 
 
 //Desafio 1 - Calculadora
@@ -150,3 +149,46 @@ var retangulo: Retangulo = Retangulo(base: 10, altura: 20)
 print("Area: \(retangulo.calcularArea())")
 print("Perimetro: \(retangulo.calcularperimetro())")
 
+ */
+
+class Conta {
+    var saldo: Double = 0.0
+    var nome: String
+    
+    func sacar(_ valor: Double) -> Void {
+        saldo -= valor
+    }
+    
+    func depositar(_ valor: Double) -> Void {
+        saldo += valor
+    }
+    
+    init(nome: String) {
+        self.nome = nome
+    }
+}
+
+class ContaPoupanca : Conta {
+    var possuiCartaoDebito: Bool = false
+    
+    func solicitarDebito() {
+        possuiCartaoDebito = true
+        print("O cliente está solicitando cartão de débito")
+    }
+}
+
+class ContaCorrente: Conta {
+    func solicitarEmprestimo(_ valor: Double) {
+        print("O cliente está solicitando um empréstimo no valor de  R$\(valor)")
+    }
+}
+
+var contaPoupanca = ContaPoupanca(nome: "Tolstoi")
+contaPoupanca.depositar(50)
+print(contaPoupanca.saldo)
+contaPoupanca.solicitarDebito()
+
+var contaCorrente = ContaCorrente(nome: "Tarantino")
+contaCorrente.depositar(100)
+print(contaCorrente.saldo)
+contaCorrente.solicitarEmprestimo(200)
