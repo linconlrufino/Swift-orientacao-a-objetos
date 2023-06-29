@@ -273,7 +273,15 @@
 
 
 class Conta {
-    var saldo: Double = 0.0
+    var saldo: Double = 0.0 {
+        willSet(novoValor){
+            print("O Saldo está sendo alterado! O seu novo valor será de \(novoValor)")
+        }
+        didSet {
+            print("O Saldo está sendo alterado! O seu valor antigo era de \(oldValue)")
+        }
+    }
+    
     var nome: String
     
     static var taxaTransferencia = 0.1
@@ -295,9 +303,10 @@ class Conta {
     }
 }
 var conta = Conta(nome: "Pulgar")
-
-conta.sacar(100)
-print(conta.negativado)
 conta.depositar(200)
-print(conta.negativado)
-print(Conta.taxaTransferencia)
+
+//conta.sacar(100)
+//print(conta.negativado)
+//conta.depositar(200)
+//print(conta.negativado)
+//print(Conta.taxaTransferencia)
