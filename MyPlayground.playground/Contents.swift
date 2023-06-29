@@ -269,8 +269,6 @@
  verificarTipo(gerente)
  verificarTipo(vendedor)
  
- */
-
 
 class Conta {
     var saldo: Double = 0.0 {
@@ -310,3 +308,82 @@ conta.depositar(200)
 //conta.depositar(200)
 //print(conta.negativado)
 //print(Conta.taxaTransferencia)
+
+
+struct Pessoa {
+  var nome: String
+  var idade: Int
+  private(set) var altura: Double
+  var peso: Double
+
+  var imc: Double {
+    return peso / (altura * altura)
+  }
+
+  var adulto: Bool {
+    return idade >= 18
+  }
+}
+
+var pessoa = Pessoa(nome: "Felipe", idade: 26, altura: 1.78, peso: 75)
+print(pessoa.altura) // 1.78
+// pessoa.altura = 1.80 -> Erro!
+
+ */
+
+
+//Desafio 1 - Propriedades computadas
+
+class Pessoa {
+    var nome: String
+    var idade: Int
+    var altura: Double
+    var peso: Double
+    
+    var imc: Double {
+        return peso / (altura * altura)
+    }
+    
+    var adulto: Bool {
+        return idade >= 18
+    }
+    
+    init(nome: String, idade: Int, altura: Double, peso: Double) {
+        self.nome = nome
+        self.idade = idade
+        self.altura = altura
+        self.peso = peso
+    }
+}
+
+//Desafio 2 - Observadores de propriedades
+
+class Empregado {
+    var nome: String
+    var salario: Double {
+        willSet {
+            if newValue > self.salario {
+                print("Parabéns, você recebeu uma promoção")
+            } else if newValue == self.salario {
+                print("Parece que não houve uma promoção dessa vez..")
+            }
+        }
+        didSet {
+            if salario < oldValue {
+                print("O novo salário não pode ser menor do que era anteriormente..")
+                salario = oldValue
+            }
+        }
+    }
+    
+    init(nome: String, salario: Double) {
+        self.nome = nome
+        self.salario = salario
+    }
+}
+
+var empregado = Empregado(nome: "Rodorfo", salario: 3000)
+
+empregado.salario = 3800
+empregado.salario = 3800
+empregado.salario = 3200
