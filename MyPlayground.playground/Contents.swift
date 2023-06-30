@@ -329,8 +329,6 @@ var pessoa = Pessoa(nome: "Felipe", idade: 26, altura: 1.78, peso: 75)
 print(pessoa.altura) // 1.78
 // pessoa.altura = 1.80 -> Erro!
 
- */
-
 
 //Desafio 1 - Propriedades computadas
 
@@ -387,3 +385,53 @@ var empregado = Empregado(nome: "Rodorfo", salario: 3000)
 empregado.salario = 3800
 empregado.salario = 3800
 empregado.salario = 3200
+
+ */
+
+
+class Conta {
+    var saldo: Double = 0.0
+    var nome: String
+        
+    func sacar(_ valor: Double) -> Void {
+        saldo -= valor
+    }
+    
+    func depositar(_ valor: Double) -> Void {
+        saldo += valor
+    }
+    
+    init(nome: String) {
+        self.nome = nome
+    }
+}
+
+extension Conta {
+    func transferir(_ contaDestino: Conta, _ valor: Double) {
+        sacar(valor)
+        contaDestino.depositar(valor)
+    }
+}
+
+var contaPele: Conta = Conta(nome: "Pele")
+var contaZico: Conta = Conta(nome: "Zico")
+
+contaPele.depositar(200)
+
+contaPele.transferir(contaZico, 200)
+
+print(contaPele.saldo)
+print(contaZico.saldo)
+
+extension String {
+    func contaCaracteresString() -> Int {
+        return self.count
+    }
+}
+
+
+let texto = "Zico"
+
+print(texto.contaCaracteresString())
+
+
