@@ -468,12 +468,23 @@ enum FormaDePagamento {
     case saldoEmConta
 }
 
+enum ResultadoSaque {
+    case sucesso(novoValor: Double)
+    case falha(erro: String)
+}
+
 class Conta {
     var saldo = 0.0
     var nome: String
 
-    func sacar(_ valor: Double) {
-        saldo -= valor
+    func sacar(_ valor: Double) -> ResultadoSaque {
+        
+        if valor > saldo {
+            return .falha(erro: "O valor é maior que o seu saldo")
+        } else {
+            saldo -= valor
+            return .sucesso(novoValor: saldo)
+        }
     }
 
     func depositar(_ valor: Double) {
@@ -497,8 +508,8 @@ var contaGiovanna = Conta(nome: "Giovanna")
 
 contaGiovanna.pagamentoCartao(.saldoEmConta)
 
-enum Mes {
-    case janeiro,
+enum Mes: String {
+    case janeiro = "Janeiro",
          fevereiro,
          marco,
          abril,
@@ -512,5 +523,32 @@ enum Mes {
          dezembro
 }
 
-var janeiro = Mes.junho
+var janeiro = Mes.janeiro
+print(janeiro.rawValue)
+
 var feveiro: Mes = .fevereiro
+print(feveiro.rawValue)
+
+
+enum Moeda: Double {
+    case umCentavo = 0.01,
+         cincoCentavos = 0.05,
+         dezCentavos = 0.1,
+         vinteCincoCentavos = 0.25,
+         cinquentaCentavos = 0.5
+}
+
+var moedaCincoCentavos = Moeda.cincoCentavos
+
+print(moedaCincoCentavos.rawValue)
+
+contaGiovanna.depositar(1000)
+let resultado = contaGiovanna.sacar(100)
+
+switch resultado {
+case .sucesso(let novoValor):
+    print("O saque foi um sucesso, e o saldo é de \(novoValor)")
+case .falha(let erro):
+    print(erro)
+    
+}
