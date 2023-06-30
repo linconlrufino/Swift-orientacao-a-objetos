@@ -479,7 +479,7 @@ class Conta {
 
     func sacar(_ valor: Double) -> ResultadoSaque {
         
-        if valor > saldo {
+        if valor > saldo {  
             return .falha(erro: "O valor é maior que o seu saldo")
         } else {
             saldo -= valor
@@ -552,3 +552,4 @@ case .falha(let erro):
     print(erro)
     
 }
+    
