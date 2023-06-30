@@ -460,8 +460,6 @@ class ContaCorrente: Conta {
     }
 }
 
- */
-
 enum FormaDePagamento {
     case pix
     case boleto
@@ -479,7 +477,7 @@ class Conta {
 
     func sacar(_ valor: Double) -> ResultadoSaque {
         
-        if valor > saldo {  
+        if valor > saldo {
             return .falha(erro: "O valor é maior que o seu saldo")
         } else {
             saldo -= valor
@@ -552,4 +550,81 @@ case .falha(let erro):
     print(erro)
     
 }
+
+*/
     
+//Desafio 01 - Área
+
+protocol Area {
+    var areaDaFigura: Double { get }
+}
+
+struct Quadrado: Area {
+    var lado: Double
+    
+    var areaDaFigura: Double {
+        return lado * lado
+    }
+    
+}
+
+struct Triangulo: Area {
+    var base: Double
+    var altura: Double
+    
+    var areaDaFigura: Double {
+        return (base * altura) / 2
+    }
+}
+
+let quadrado = Quadrado(lado: 7)
+let triangulo = Triangulo(base: 4, altura: 3)
+quadrado.areaDaFigura
+triangulo.areaDaFigura
+
+
+//Desafio 02 - Moedas
+
+enum Moeda: Int {
+  case UmCentavo = 1
+  case CincoCentavos = 5
+  case DezCentavos = 10
+  case VinteCincoCentavos = 25
+  case CinquentaCentavos = 50
+}
+
+let moedas: [Moeda] = [.CincoCentavos, .UmCentavo, .CincoCentavos, .VinteCincoCentavos, .CincoCentavos, .DezCentavos]
+
+func somaMoedas(_ listaDeMoedas: Array<Moeda>) -> Double {
+    var somaTotal: Double = 0.0
+    
+    for moeda in listaDeMoedas {
+        somaTotal += Double(moeda.rawValue)
+    }
+    
+    return somaTotal
+}
+
+print(somaMoedas(moedas))
+
+
+//Desafio 02 - Moedas - Outra implementação
+
+enum Moeda: Int {
+  case UmCentavo = 1
+  case CincoCentavos = 5
+  case DezCentavos = 10
+  case VinteCincoCentavos = 25
+  case CinquentaCentavos = 50
+
+  static func contarMoedas(_ moedas: [Self]) -> Int {
+    var soma = 0
+    for valor in moedas {
+      soma += valor.rawValue
+    }
+    return soma
+  }
+}
+
+let moedas: [Moeda] = [.CincoCentavos, .UmCentavo, .CincoCentavos, .VinteCincoCentavos, .CincoCentavos, .DezCentavos]
+Moeda.contarMoedas(moedas)
